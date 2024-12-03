@@ -34,26 +34,34 @@ class Ray {
 function
 main()
 {
-	let canvas = document.createElement("canvas");
+	const canvas = document.createElement("canvas");
 	document.body.appendChild(canvas);
 	canvas.width = IMAGE_WIDTH;
 	canvas.height = IMAGE_HEIGHT;
 
-	let ctx = canvas.getContext("2d");
+	const ctx = canvas.getContext("2d");
 	if (!ctx) {
-		die("Failed to get canvas drawing context");
+		die("Failed to get canvas rendering context");
 	}
 
 	for (let y = 0; y < IMAGE_HEIGHT; ++y) {
 		for (let x = 0; x < IMAGE_WIDTH; ++x) {
-			let r = Math.floor(256 * (x / IMAGE_WIDTH));
-			let g = Math.floor(256 * (y / IMAGE_HEIGHT));
-			console.assert(0 <= r && r <= 255);
-			console.assert(0 <= g && g <= 255);
-			ctx.fillStyle = `rgba(${r}, ${g}, 255, 1.0)`;
-			ctx.fillRect(x, y, 1, 1);
+			const color = new Vec3(
+			    Math.floor(256 * x / IMAGE_WIDTH),
+			    Math.floor(256 * y / IMAGE_HEIGHT), 0);
+			setPixel(ctx, x, y, color);
 		}
 	}
+}
+
+function
+setPixel(ctx: CanvasRenderingContext2D, x: number, y: number, color: Vec3)
+{
+	console.assert(0 <= color.x && color.x <= 255);
+	console.assert(0 <= color.y && color.y <= 255);
+	console.assert(0 <= color.z && color.z <= 255);
+	ctx.fillStyle = `rgba(${color.x}, ${color.y}, ${color.z}, 1.0)`;
+	ctx.fillRect(x, y, 1, 1);
 }
 
 function
