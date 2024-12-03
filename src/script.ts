@@ -3,6 +3,34 @@ const IMAGE_HEIGHT = 480;
 
 addEventListener("load", main);
 
+class Vec3 {
+	constructor(public x: number, public y: number, public z: number) {}
+
+	get length(): number {
+		return this.length_squared ** 0.5;
+	}
+
+	get length_squared(): number {
+		return this.x ** 2 + this.y ** 2 + this.z ** 2;
+	}
+
+	scale(k: number): Vec3 {
+		return new Vec3(this.x * k, this.y * k, this.z * k);
+	}
+
+	add(v: Vec3): Vec3 {
+		return new Vec3(this.x + v.x, this.y + v.y, this.z + v.z);
+	}
+}
+
+class Ray {
+	constructor(public origin: Vec3, public direction: Vec3) {}
+
+	at(t: number): Vec3 {
+		return this.direction.scale(t).add(this.origin);
+	}
+}
+
 function
 main()
 {
