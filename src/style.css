@@ -1,0 +1,14 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	background: black;
+}
+canvas {
+	display: block;
+	background: white;
+	height: calc(min(100vh, 62.5vw));
+	width: auto;
+	margin: 0 auto;
+}
